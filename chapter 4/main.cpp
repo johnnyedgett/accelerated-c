@@ -11,6 +11,7 @@ using std::cout;    using std::string;
 using std::cin;     using std::streamsize;
 using std::endl;    using std::setprecision;
 using std::vector;  using std::max;
+using std::sort;
 
 int main(){
     cout << "Begin the grading program." << endl;
@@ -26,11 +27,13 @@ int main(){
         students.push_back(record);
     }
 
+    sort(students.begin(), students.end(), compare);
+
     if(students.size() == 0){
         throw new std::domain_error("No students entered...");
     } else {
         for(vector<Student_Info>::size_type i = 0; i < students.size(); i++){
-            cout << students[i].name << string(maxLen + 1, ' ');
+            cout << students[i].name << string(maxLen + 1 - students[i].name.size(), ' ');
             try {
                 double finalGrade = calcGrade(students[i]);
                 streamsize prec = cout.precision();
